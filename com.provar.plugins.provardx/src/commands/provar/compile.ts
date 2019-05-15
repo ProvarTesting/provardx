@@ -56,8 +56,11 @@ export default class compile extends SfdxCommand {
           this.updatePropertiesWithOverrides(properties, projectPath);
         }
 
+        let jarPath = properties['provarHome'] +'/provardx/provardx.jar';
+        console.log(jarPath);
         let rawProperties = JSON.stringify(properties);
-        execSync('java -cp D:/git/Provar/Java/com.provar.testrunner/provardx.jar com.provar.provardx.DxCommandExecuter ' + 
+        
+        execSync('java -cp ' + jarPath + ' com.provar.provardx.DxCommandExecuter ' + 
           this.prepareRawProperties(rawProperties) + " " + "Compile", 
           {stdio: 'inherit'});
           return {};
