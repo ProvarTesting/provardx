@@ -26,7 +26,8 @@ export default class compile extends SfdxCommand {
 
     protected static flagsConfig = {
       propertyfile: flags.string({char: 'p', description: messages.getMessage('propertyFileFlagDescription')}),
-      projectpath: flags.string({char: 't', description: messages.getMessage('projectPathFlagDescription')}),
+      provarhome: flags.string({char: 'h', description: messages.getMessage('provarHomeFlagDescription')}),
+      projectpath: flags.string({char: 'p', description: messages.getMessage('projectPathFlagDescription')}),
       loglevel: flags.string({char: 'l', description: messages.getMessage('loglevelFlagDescription')})
     };
     
@@ -36,6 +37,7 @@ export default class compile extends SfdxCommand {
         const propertyFile : string = this.flags.propertyfile;
         const json : boolean = this.flags.json;
         const loglevel : string = this.flags.loglevel ? this.flags.loglevel : 'INFO';
+        const provarHome : string = this.flags.provarhome;
         const projectPath : string = this.flags.projectpath;
 
         let provarDxUtils : ProvarDXUtility = new ProvarDXUtility();
@@ -51,27 +53,29 @@ export default class compile extends SfdxCommand {
         this.ux.log("Json: " + jsonValue);
         this.ux.log("LogLevel: " + loglevel);
 
-        var properties = provarDxUtils.getProperties();
-        if(projectPath) {
-          this.updatePropertiesWithOverrides(properties, projectPath);
+        let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), provarHome, projectPath);
+        let rawProperties = JSON.stringify(properties);
+
+        if(properties.provarHome == null) {
+          this.ux.error('Prover home is not specified.');
+          return {};
         }
 
-        let jarPath = properties['provarHome'] +'/provardx/provardx.jar';
-        console.log(jarPath);
-        let rawProperties = JSON.stringify(properties);
-        
-        execSync('java -cp ' + jarPath + ' com.provar.provardx.DxCommandExecuter ' + 
-          this.prepareRawProperties(rawProperties) + " " + "Compile", 
+        let updateProperties = this.prepareRawProperties(rawProperties);
+        let jarPath = properties.provarHome +'/provardx/provardx.jar';
+        execSync('java -cp ' + jarPath + ' com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "Compile", 
           {stdio: 'inherit'});
-          return {};
+
+        return {};
     }
 
     public prepareRawProperties(rawProperties:string) : string {
       return '"' + rawProperties.replace(/"/g, "\\\"") + '"';
     }
 
-    public updatePropertiesWithOverrides(properties: any, projectPath: string) {
-      properties['projectPath'] = projectPath;
+    public updatePropertiesWithOverrides(properties: any, provarHome: string, projectPath: string) {
+      properties.provarHome = provarHome == null ? properties.provarHome : provarHome;
+      properties.projectPath = projectPath == null ? properties.projectPath: projectPath;
       return properties;
     }
 }
