@@ -4,7 +4,7 @@
         "provar:compile": {
             "id": "provar:compile",
             "description": "Pre-compiles any /src PageObject or PageControl Java source files into object code to use in runtests",
-            "usage": "<%= command.id %> [-p <string>] [--json] [-l <string>]",
+            "usage": "<%= command.id %> [-p <string>] [-h <string>] [-p <string>] [--json] [-l <string>]",
             "pluginName": "@provartesting/provardx",
             "pluginType": "core",
             "aliases": [],
@@ -29,6 +29,18 @@
                     "type": "option",
                     "char": "p",
                     "description": "Specify custom property file."
+                },
+                "provarhome": {
+                    "name": "provarhome",
+                    "type": "option",
+                    "char": "h",
+                    "description": "Specify provar home override"
+                },
+                "projectpath": {
+                    "name": "projectpath",
+                    "type": "option",
+                    "char": "p",
+                    "description": "Specify project path override"
                 }
             },
             "args": [
