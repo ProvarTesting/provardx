@@ -30,23 +30,24 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx provar:compile [-p <string>] [-t <string>] [--json] [-l <string>]`](#sfdx-provarcompile--p-string--t-string---json--l-string)
+* [`sfdx provar:compile [-p <string>] [-h <string>] [-p <string>] [--json] [-l <string>]`](#sfdx-provarcompile--p-string--h-string--p-string---json--l-string)
 * [`sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [--json] [-l <string>]`](#sfdx-provarmetadatacache--m-string--c-string--p-string---json--l-string)
 * [`sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] [-l <string>]`](#sfdx-provarruntests--f-string--p-string--o-string--c-string--m-string--s-string---json--l-string)
 * [`sfdx provar:validate [-p <string>] [--json] [-l <string>]`](#sfdx-provarvalidate--p-string---json--l-string)
 
-## `sfdx provar:compile [-p <string>] [-t <string>] [--json] [-l <string>]`
+## `sfdx provar:compile [-p <string>] [-h <string>] [-p <string>] [--json] [-l <string>]`
 
 Pre-compiles any /src PageObject or PageControl Java source files into object code to use in runtests
 
 ```
 USAGE
-  $ sfdx provar:compile [-p <string>] [-t <string>] [--json] [-l <string>]
+  $ sfdx provar:compile [-p <string>] [-h <string>] [-p <string>] [--json] [-l <string>]
 
 OPTIONS
+  -h, --provarhome=provarhome      Specify provar home override
   -l, --loglevel=loglevel          Specify log level for command output
+  -p, --projectpath=projectpath    Specify project path override
   -p, --propertyfile=propertyfile  Specify custom property file.
-  -t, --projectpath=projectpath    Specify project path override
   --json                           format output as json
 
 EXAMPLE
