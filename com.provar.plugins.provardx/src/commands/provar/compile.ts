@@ -25,7 +25,7 @@ export default class compile extends SfdxCommand {
     ];
 
     protected static flagsConfig = {
-      propertyfile: flags.string({char: 'p', description: messages.getMessage('propertyFileFlagDescription')}),
+      propertyfile: flags.string({char: 'f', description: messages.getMessage('propertyFileFlagDescription')}),
       provarhome: flags.string({char: 'h', description: messages.getMessage('provarHomeFlagDescription')}),
       projectpath: flags.string({char: 'p', description: messages.getMessage('projectPathFlagDescription')}),
       loglevel: flags.string({char: 'l', description: messages.getMessage('loglevelFlagDescription')})
