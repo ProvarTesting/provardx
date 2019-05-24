@@ -2,6 +2,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
 import { Messages } from '@salesforce/core';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
+import { execSync } from 'child_process';
 
 
 /**
@@ -63,9 +64,24 @@ export default class metadatacache extends SfdxCommand {
     this.ux.log("Property File" + ' : ' + propertyFile);
     this.ux.log("JSON" + ' : ' + json);
     this.ux.log("Log level" + ' : ' + logLevel);
+    
+    let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadataLevel, cachePath, propertyFile);
+    let rawProperties = JSON.stringify(properties);
 
-    //TODO: Actual logic for metadata loading.
+    let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
 
-    return {};
+    let jarPath = properties.provarHome +'/provardx/provardx.jar';
+        execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "Metadata", 
+          {stdio: 'inherit'});
+
+        return {};
   }
+
+  public updatePropertiesWithOverrides(properties: any, metadataLevel: string, cachePath: string, propertyFile: string) {
+    properties.metadata.metadataLevel = metadataLevel == null ? properties.metadata.metadataLevel : metadataLevel;
+    properties.metadata.cachePath = cachePath == null ? properties.metadata.cachePath: cachePath;
+    properties.propertyFile = propertyFile == null ? properties.propertyFile: propertyFile;
+    return properties;
+  }
+
 }

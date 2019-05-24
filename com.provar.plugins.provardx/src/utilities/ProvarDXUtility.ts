@@ -35,4 +35,8 @@ export default class ProvarDXUtility {
     getProperties(): any {
         return this.propertyInstance;
     }
+
+    prepareRawProperties(rawProperties:string) : string {
+        return '"' + rawProperties.replace(/"/g, "\\\"") + '"';
+    }
 };
