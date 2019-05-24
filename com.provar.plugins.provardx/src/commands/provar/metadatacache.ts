@@ -67,7 +67,7 @@ export default class metadatacache extends SfdxCommand {
     
     let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadataLevel, cachePath, propertyFile);
     let rawProperties = JSON.stringify(properties);
-console.log(rawProperties);
+
     let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
 
     let jarPath = properties.provarHome +'/provardx/provardx.jar';
