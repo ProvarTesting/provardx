@@ -6,7 +6,7 @@
 	"excludeCallable": true,
 	"stopOnError": true,
 	"metadata": {
-      "metadatalevel" : "REUSE",
+      "metadataLevel" : "REUSE",
       "cachePath" : "/usr/Richard/Provar/Cache" 
 },
   	"environment": {

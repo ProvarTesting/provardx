@@ -45,7 +45,7 @@ export default class metadatacache extends SfdxCommand {
   public static args = [{name: 'file'}];
 
   public async run(): Promise<AnyJson> {
-    const metadatalevel : string = this.flags.metadatalevel;
+    const metadataLevel : string = this.flags.metadatalevel;
     const cachePath : string = this.flags.cachepath;
     const propertyFile : string = this.flags.propertyfile;
     const json : string = this.flags.propertyFile;
@@ -59,20 +59,15 @@ export default class metadatacache extends SfdxCommand {
         return {};
     }
 
-    this.ux.log("Metadata level" + ' : ' + metadatalevel);
+    this.ux.log("Metadata level" + ' : ' + metadataLevel);
     this.ux.log("Cache Path" + ' : ' + cachePath);
     this.ux.log("Property File" + ' : ' + propertyFile);
     this.ux.log("JSON" + ' : ' + json);
     this.ux.log("Log level" + ' : ' + logLevel);
     
-    let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadatalevel, cachePath, propertyFile);
+    let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadataLevel, cachePath, propertyFile);
     let rawProperties = JSON.stringify(properties);
-    
-    if (properties.metadata.cachePath == null) {
-      this.ux.error('Metadata Cache path is not specified');
-      return {};
-    }
-
+console.log(rawProperties);
     let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
 
     let jarPath = properties.provarHome +'/provardx/provardx.jar';
@@ -82,8 +77,8 @@ export default class metadatacache extends SfdxCommand {
         return {};
   }
 
-  public updatePropertiesWithOverrides(properties: any, metadatalevel: string, cachePath: string, propertyFile: string) {
-    properties.metadata.metadatalevel = metadatalevel == null ? properties.metadata.metadatalevel : metadatalevel;
+  public updatePropertiesWithOverrides(properties: any, metadataLevel: string, cachePath: string, propertyFile: string) {
+    properties.metadata.metadataLevel = metadataLevel == null ? properties.metadata.metadataLevel : metadataLevel;
     properties.metadata.cachePath = cachePath == null ? properties.metadata.cachePath: cachePath;
     properties.propertyFile = propertyFile == null ? properties.propertyFile: propertyFile;
     return properties;
