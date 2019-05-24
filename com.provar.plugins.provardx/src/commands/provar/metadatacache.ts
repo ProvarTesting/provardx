@@ -32,7 +32,7 @@ export default class metadatacache extends SfdxCommand {
     
   protected static flagsConfig = {
     // flag with a value (-f, --propertyfile=VALUE)
-    caching: flags.string({char: 'm', description: messages.getMessage('metadataLevelFlagDescription')}),
+    metadatalevel: flags.string({char: 'm', description: messages.getMessage('metadataLevelFlagDescription')}),
     // flag with a value (-c, --cachepath=VALUE)
     cachepath: flags.string({char: 'c', description: messages.getMessage('cachePathFlagDescription')}),
     // flag with a value (-p, --propertyfile=VALUE)
@@ -45,8 +45,8 @@ export default class metadatacache extends SfdxCommand {
   public static args = [{name: 'file'}];
 
   public async run(): Promise<AnyJson> {
-    const caching : string = this.flags.caching;
-    const cachePath : string = this.flags.cachePath;
+    const metadatalevel : string = this.flags.metadatalevel;
+    const cachePath : string = this.flags.cachepath;
     const propertyFile : string = this.flags.propertyfile;
     const json : string = this.flags.propertyFile;
     const logLevel : string = this.flags.loglevel ? this.flags.loglevel : 'INFO';
@@ -59,16 +59,16 @@ export default class metadatacache extends SfdxCommand {
         return {};
     }
 
-    this.ux.log("Metadata level" + ' : ' + caching);
+    this.ux.log("Metadata level" + ' : ' + metadatalevel);
     this.ux.log("Cache Path" + ' : ' + cachePath);
     this.ux.log("Property File" + ' : ' + propertyFile);
     this.ux.log("JSON" + ' : ' + json);
     this.ux.log("Log level" + ' : ' + logLevel);
     
-    let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), caching, cachePath, propertyFile);
+    let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadatalevel, cachePath, propertyFile);
     let rawProperties = JSON.stringify(properties);
-
-    if (properties.cachePath == null) {
+    
+    if (properties.metadata.cachePath == null) {
       this.ux.error('Metadata Cache path is not specified');
       return {};
     }
@@ -82,9 +82,9 @@ export default class metadatacache extends SfdxCommand {
         return {};
   }
 
-  public updatePropertiesWithOverrides(properties: any, caching: string, cachePath: string, propertyFile: string) {
-    properties.caching = caching == null ? properties.metadata.caching : caching;
-    properties.cachePath = cachePath == null ? properties.metadata.cachePath: cachePath;
+  public updatePropertiesWithOverrides(properties: any, metadatalevel: string, cachePath: string, propertyFile: string) {
+    properties.metadata.metadatalevel = metadatalevel == null ? properties.metadata.metadatalevel : metadatalevel;
+    properties.metadata.cachePath = cachePath == null ? properties.metadata.cachePath: cachePath;
     properties.propertyFile = propertyFile == null ? properties.propertyFile: propertyFile;
     return properties;
   }

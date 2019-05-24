@@ -34,7 +34,7 @@
         "description": "Controls the Salesforce Metadata usage.",
         "type": "object",
         "properties": {
-          "caching": {
+          "metadatalevel": {
             "description": "Controls the Salesforce Metadata usage",
             "type": "string",
             "enum": ["REUSE","RELOAD","REFRESH"]
@@ -44,7 +44,7 @@
             "type": "string"
           }
         },
-        "required": ["caching", "cachePath"]
+        "required": ["metadatalevel", "cachePath"]
       },    
       "environment" : {
         "description": "",
