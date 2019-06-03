@@ -37,7 +37,7 @@
           "metadataLevel": {
             "description": "Controls the Salesforce Metadata usage",
             "type": "string",
-            "enum": ["REUSE","RELOAD","REFRESH"]
+            "enum": ["Reuse","Reload","Refresh"]
           },
           "cachePath": {
             "description": "The fully qualified path of the folder that will be used for storing the metadata cache",
@@ -57,7 +57,7 @@
           "webBrowser": {
             "description": "The web browser to be used for UI testing",
             "type":  "string",
-            "enum": ["CHROME","EDGE","FIREFOX","SAFARI"]
+            "enum": ["Chrome","Edge","Firefox","SAFARI","IE"]
           },
           "webBrowserConfig": {
             "description": "The web browser window size. Browser configurations are defined in Test Settings",
