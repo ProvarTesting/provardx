@@ -4,7 +4,9 @@
 	"resultsPath": "/usr/Richard/Provar/MyProject/Results",
 	"outputLevel": "SEVERE",
 	"excludeCallable": true,
-	"stopOnError": true,
+  "stopOnError": true,
+  "lightningMode" : true,
+  "connectionRefreshType" : "Reload",
 	"metadata": {
       "metadataLevel" : "REUSE",
       "cachePath" : "/usr/Richard/Provar/Cache" 

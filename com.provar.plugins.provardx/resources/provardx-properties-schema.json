@@ -26,6 +26,14 @@
         "description": "Indicates whether Callable Test Cases should be omitted from execution (true) or included in execution (false)",
         "type": "boolean"
       },
+      "connectionRefreshType": {
+        "description": "Controls the Metadata at Connection level",
+        "type": "string"
+      },
+      "lightningMode": {
+        "description": "Indicates org is lightning or not",
+        "type": "boolean"
+      },
       "stopOnError": {
         "description": "Indicates whether the Test Run should abort automatically if any test failure is encountered",
         "type": "boolean"
