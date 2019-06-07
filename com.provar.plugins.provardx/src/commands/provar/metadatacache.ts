@@ -12,7 +12,7 @@ import { execSync } from 'child_process';
  *but needs to complete before runtests is executed to avoid any duplication of metadata download.
  *If no user and no propertyfile is specified then the metadata will be downloaded for the SFDX current default user. 
  *This may not be what is expected or desired but is consistent with other DX commands! It is up to the user to correctly specify the user(s). 
- *For download metadata for multiple users it’s recommended to reuse the propertyfile and override the metadata cache settings in the property file with the -m flag.
+ *For download metadata for multiple users itâ€™s recommended to reuse the propertyfile and override the metadata cache settings in the property file with the -m flag.
 
  * @author Himanshu Sharma
  */
@@ -71,10 +71,9 @@ export default class metadatacache extends SfdxCommand {
     let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
 
     let jarPath = properties.provarHome +'/provardx/provardx.jar';
-        execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "Metadata", 
-          {stdio: 'inherit'});
-
-        return {};
+    execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "Metadata", 
+      {stdio: 'inherit'});
+    return {};
   }
 
   public updatePropertiesWithOverrides(properties: any, metadataLevel: string, cachePath: string, propertyFile: string) {
@@ -83,5 +82,4 @@ export default class metadatacache extends SfdxCommand {
     properties.propertyFile = propertyFile == null ? properties.propertyFile: propertyFile;
     return properties;
   }
-
 }

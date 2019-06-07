@@ -2,6 +2,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
 import { Messages } from '@salesforce/core';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
+import { execSync } from 'child_process';
 
 
 /**
@@ -69,10 +70,22 @@ export default class runtests extends SfdxCommand {
       this.ux.log(secrets);
       this.ux.log(logLevel);
       this.ux.log(json);
-        
-        //var properties = provarDxUtils.getProperties();
-        
-        //TODO: Actual logic to runtests.
-        return {};
-    }
+      
+      
+      let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadataLevel, cachePath, propertyFile);
+      let rawProperties = JSON.stringify(properties);
+  
+      let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
+      let jarPath = properties.provarHome +'/provardx/provardx.jar';
+      execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "Runtests", 
+        {   stdio: 'inherit'});
+      return {};
+  }
+
+  public updatePropertiesWithOverrides(properties: any, metadataLevel: string, cachePath: string, propertyFile: string) {
+    properties.metadata.metadataLevel = metadataLevel == null ? properties.metadata.metadataLevel : metadataLevel;
+    properties.metadata.cachePath = cachePath == null ? properties.metadata.cachePath: cachePath;
+    properties.propertyFile = propertyFile == null ? properties.propertyFile: propertyFile;
+    return properties;
+  }
 }
