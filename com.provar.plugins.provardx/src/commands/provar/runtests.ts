@@ -1,8 +1,8 @@
-import { flags, SfdxCommand } from '@salesforce/command';
-import { AnyJson } from '@salesforce/ts-types';
-import { Messages } from '@salesforce/core';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 import { execSync } from 'child_process';
+import { Messages } from '@salesforce/core';
+import { SfdxCommand, flags } from '@salesforce/command';
+import { AnyJson } from '@salesforce/ts-types';
 
 
 /**
@@ -45,32 +45,22 @@ export default class runtests extends SfdxCommand {
     public static args = [{name: 'file'}];
 
     public async run(): Promise<AnyJson> {
-      const fileSpec : string = this.flags.filespec;
+      //const fileSpec : string = this.flags.filespec;
       const propertyFile : string = this.flags.propertyfile;
-      const connectionOverrideFile : string = this.flags.connectionoverridefile;
+      //const connectionOverrideFile : string = this.flags.connectionoverridefile;
       const cachePath : string = this.flags.cachepath;
       const metadataLevel : string = this.flags.metadatalevel;
-      const secrets : string = this.flags.secrets;
-      const logLevel : string = this.flags.loglevel;
-      const json : string = this.flags.json;
+      //const secrets : string = this.flags.secrets;
+      //const logLevel : string = this.flags.loglevel;
+      //const json : string = this.flags.json;
 
       let provarDxUtils : ProvarDXUtility = new ProvarDXUtility();
       let isValid : boolean = provarDxUtils.validatePropertiesJson(propertyFile);
 
-      if(!isValid) {
-          this.ux.error("Invalid property file. Run command sfdx provar:validate -e true' to get the validation errors");
+      if(!isValid || provarDxUtils.hasDuplicateConnectionOverride(provarDxUtils.getProperties())) {
+          this.ux.error("Invalid property file. Run command sfdx provar:validate' to know the validation errors");
           return {};
       }
-      this.ux.log('Provided parameters are: ');
-      this.ux.log(fileSpec);
-      this.ux.log(propertyFile);
-      this.ux.log(connectionOverrideFile);
-      this.ux.log(cachePath);
-      this.ux.log(metadataLevel);
-      this.ux.log(secrets);
-      this.ux.log(logLevel);
-      this.ux.log(json);
-      
       
       let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadataLevel, cachePath, propertyFile);
       let rawProperties = JSON.stringify(properties);

@@ -1,8 +1,8 @@
-import { flags, SfdxCommand } from '@salesforce/command';
-import { AnyJson } from '@salesforce/ts-types';
-import { Messages } from '@salesforce/core';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 import { execSync } from 'child_process';
+import { Messages } from '@salesforce/core';
+import { SfdxCommand, flags } from '@salesforce/command';
+import { AnyJson } from '@salesforce/ts-types';
 
 
 /**
@@ -48,22 +48,16 @@ export default class metadatacache extends SfdxCommand {
     const metadataLevel : string = this.flags.metadatalevel;
     const cachePath : string = this.flags.cachepath;
     const propertyFile : string = this.flags.propertyfile;
-    const json : string = this.flags.propertyFile;
-    const logLevel : string = this.flags.loglevel ? this.flags.loglevel : 'INFO';
+    //const json : string = this.flags.propertyFile;
+    //const logLevel : string = this.flags.loglevel ? this.flags.loglevel : 'INFO';
 
     let provarDxUtils : ProvarDXUtility = new ProvarDXUtility();
     let isValid : boolean = provarDxUtils.validatePropertiesJson(propertyFile);
-
-    if(!isValid) {
-        this.ux.error("Invalid property file. Run command sfdx provar:validate -e true' to get the validation errors");
+    
+    if(!isValid || provarDxUtils.hasDuplicateConnectionOverride(provarDxUtils.getProperties())) {
+        this.ux.error("Invalid property file. Run command sfdx provar:validate' to know the validation errors");
         return {};
     }
-
-    this.ux.log("Metadata level" + ' : ' + metadataLevel);
-    this.ux.log("Cache Path" + ' : ' + cachePath);
-    this.ux.log("Property File" + ' : ' + propertyFile);
-    this.ux.log("JSON" + ' : ' + json);
-    this.ux.log("Log level" + ' : ' + logLevel);
     
     let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadataLevel, cachePath, propertyFile);
     let rawProperties = JSON.stringify(properties);
