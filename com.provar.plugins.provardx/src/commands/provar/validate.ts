@@ -54,10 +54,17 @@ export default class validate extends SfdxCommand {
     const json : boolean = this.flags.json;
     const loglevel : string = this.flags.loglevel ? this.flags.loglevel : 'INFO';
   
-    var provarDxUtils : ProvarDXUtility = new ProvarDXUtility();
-    var isValid : boolean = provarDxUtils.validatePropertiesJson(propertyFile);
-    var results : ValidatorResult = provarDxUtils.getValidationResults();
-    
+    let provarDxUtils : ProvarDXUtility = new ProvarDXUtility();
+    let isValid : boolean = provarDxUtils.validatePropertiesJson(propertyFile);
+    let results : ValidatorResult = provarDxUtils.getValidationResults();
+
+    let  errorMsgs= {'message': ''};
+
+    if(provarDxUtils.hasDuplicateConnectionOverride(provarDxUtils.getProperties())) {
+      errorMsgs.message = "Duplicate connection overrides, you can't have multiple connection overrides for same connection.";
+      isValid = false;
+    }
+   
     if(isValid) {
       if(loglevel == 'INFO' || loglevel == 'FINE' || loglevel == 'FINNER' || loglevel == 'FINEST' ) {
         if(json) {
@@ -73,11 +80,9 @@ export default class validate extends SfdxCommand {
         }
       }
     } else {
-      let  errorMsgs= {'message': ''};
       for(let i = 0; i < results.errors.length; i++) {
         errorMsgs['message'] += results.errors[i].property + " " + results.errors[i].message + ", ";
       }
-
       if(loglevel === 'INFO' || loglevel === 'FINE' || loglevel === 'FINNER' || loglevel === 'FINEST' ) {
         if(json) {
           this.ux.logJson( {'isValid': false});

@@ -1,8 +1,8 @@
-import { flags, SfdxCommand } from '@salesforce/command';
-import { AnyJson } from '@salesforce/ts-types';
-import { Messages } from '@salesforce/core';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 import { execSync } from 'child_process';
+import { Messages } from '@salesforce/core';
+import { SfdxCommand, flags } from '@salesforce/command';
+import { AnyJson } from '@salesforce/ts-types';
 
 
 /**

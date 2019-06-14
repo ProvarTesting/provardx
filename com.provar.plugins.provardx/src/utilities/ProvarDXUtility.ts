@@ -18,13 +18,26 @@ export default class ProvarDXUtility {
         let propertiesLoc = propertyJson ? propertyJson : this.provarDxPropertiesJsonLoc;
         let instance = JSON.parse(fs.readFileSync(propertiesLoc).toString());
         this.propertyInstance = instance;
-
+        
         this.validationResults = jsonValidator.validate(instance, schema);
         
         if(this.validationResults.errors.length > 0) {
             return false;
         }
         return true;
+    }
+    
+    hasDuplicateConnectionOverride(instance: Object): boolean {
+        let overrideMap = new Map();
+        let override = instance["connectionOverride"];
+        for(let i = 0; i < override.length ; i++) {
+            let connectionName = override[i].connection;
+            if(overrideMap.has(connectionName)){
+                return true;
+            }
+            overrideMap.set(connectionName, override[i].username)
+        }
+        return false;
     }
 
     getValidationResults(): ValidatorResult {

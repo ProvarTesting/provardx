@@ -1,8 +1,8 @@
-import { flags, SfdxCommand } from '@salesforce/command';
-import { AnyJson } from '@salesforce/ts-types';
-import { Messages } from '@salesforce/core';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 import { execSync } from 'child_process';
+import { Messages } from '@salesforce/core';
+import { SfdxCommand, flags } from '@salesforce/command';
+import { AnyJson } from '@salesforce/ts-types';
 
 
 /**
@@ -53,9 +53,9 @@ export default class metadatacache extends SfdxCommand {
 
     let provarDxUtils : ProvarDXUtility = new ProvarDXUtility();
     let isValid : boolean = provarDxUtils.validatePropertiesJson(propertyFile);
-
-    if(!isValid) {
-        this.ux.error("Invalid property file. Run command sfdx provar:validate -e true' to get the validation errors");
+    
+    if(!isValid || provarDxUtils.hasDuplicateConnectionOverride(provarDxUtils.getProperties())) {
+        this.ux.error("Invalid property file. Run command sfdx provar:validate' to know the validation errors");
         return {};
     }
 
