@@ -65,9 +65,15 @@ export default class runtests extends SfdxCommand {
       let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadataLevel, cachePath, propertyFile);
       let rawProperties = JSON.stringify(properties);
   
+      let userInfo = await provarDxUtils.getDxUsersInfo(properties.connectionOverride);
+      if(userInfo == null) {
+        this.ux.error('[ERROR] No valid user org found to run tests. Terminating command.');
+        return {};
+      }
+      let userInfoString = provarDxUtils.prepareRawProperties(JSON.stringify({'dxUsers': userInfo}));
       let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
       let jarPath = properties.provarHome +'/provardx/provardx.jar';
-      execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "Runtests", 
+      execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + userInfoString + " " + "Runtests", 
         {   stdio: 'inherit'});
       return {};
   }
