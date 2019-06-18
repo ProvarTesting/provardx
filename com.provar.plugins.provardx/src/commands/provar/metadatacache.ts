@@ -63,9 +63,15 @@ export default class metadatacache extends SfdxCommand {
     let rawProperties = JSON.stringify(properties);
 
     let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
-
+    
+    let userInfo = await provarDxUtils.getDxUsersInfo(properties.connectionOverride);
+    if(userInfo == null) {
+      this.ux.error('[ERROR] No valid user org found to download metadata. Terminating command.');
+      return {};
+    }
+    let userInfoString = provarDxUtils.prepareRawProperties(JSON.stringify({'dxUsers': userInfo}));
     let jarPath = properties.provarHome +'/provardx/provardx.jar';
-    execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "Metadata", 
+    execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + userInfoString + " " + "Metadata", 
       {stdio: 'inherit'});
     return {};
   }
