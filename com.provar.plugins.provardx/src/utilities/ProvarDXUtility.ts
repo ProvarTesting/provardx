@@ -89,8 +89,10 @@ export default class ProvarDXUtility {
                 let generatePasswordCommand = 'sfdx force:user:password:generate --targetusername ' + username;
                 await this.executeCommand(generatePasswordCommand, 'Generating password for user: '+ username);
                 dxUserInfo = await this.executeCommand('sfdx force:user:display --json -u ' + username, "Getting generated password for user: "+ username);
+                jsonDxUser = JSON.parse(dxUserInfo.toString());
             }
             jsonDxUser.result.connection = overrides[i]["connection"];
+            jsonDxUser.result.password = jsonDxUser.result.password.replace("&", "038;"); //replacing '&' with its ASCII value, '&' caused arguments to truncate when passed to java args.
             dxUsers.push(jsonDxUser);
         }
         if(dxUsers.length == 0){
