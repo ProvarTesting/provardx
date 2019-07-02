@@ -25,9 +25,9 @@ export default class compile extends SfdxCommand {
     ];
 
     protected static flagsConfig = {
-      propertyfile: flags.string({char: 'f', description: messages.getMessage('propertyFileFlagDescription')}),
+      propertyfile: flags.string({char: 'p', description: messages.getMessage('propertyFileFlagDescription')}),
       provarhome: flags.string({char: 'h', description: messages.getMessage('provarHomeFlagDescription')}),
-      projectpath: flags.string({char: 'p', description: messages.getMessage('projectPathFlagDescription')}),
+      projectpath: flags.string({char: 'c', description: messages.getMessage('projectPathFlagDescription')}),
       loglevel: flags.string({char: 'l', description: messages.getMessage('loglevelFlagDescription')})
     };
     
@@ -63,7 +63,7 @@ export default class compile extends SfdxCommand {
 
         let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
         let jarPath = properties.provarHome +'/provardx/provardx.jar';
-        execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "Compile", 
+        execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + "NA" + " " + "Compile", 
           {stdio: 'inherit'});
 
         return {};
@@ -75,3 +75,4 @@ export default class compile extends SfdxCommand {
       return properties;
     }
 }
+  
