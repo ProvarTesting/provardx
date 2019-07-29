@@ -3,6 +3,8 @@
     "metadataLevelFlagDescription" : "Permitted values reload (get all metadata - default) | refresh (only download changes).",
     "cachePathFlagDescription": "Relative or full file path for where the metadata cache will be stored.",
     "propertyFileFlagDescription" : "Specify custom property file.",
-    "loglevelFlagDescription": "Specify the log level for command"
+    "loglevelFlagDescription": "Specify the log level for command",
+    "connectionNameFlagDescription": "Specify the name of connection for which metadata to be downloaded.",
+    "connectionoverridesFlagDescription": "Specify comma seperated values for connection overrides, eg Admin:test@provar.com,Reg:test1@provar.com"
 }
   

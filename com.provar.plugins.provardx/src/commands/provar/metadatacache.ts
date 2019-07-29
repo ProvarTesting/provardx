@@ -38,7 +38,11 @@ export default class metadatacache extends SfdxCommand {
     // flag with a value (-p, --propertyfile=VALUE)
     propertyfile: flags.string({char: 'p', description: messages.getMessage('propertyFileFlagDescription')}),
     // flag with a value (-l, --loglevel VALUE)
-    loglevel: flags.string({char: 'l', description: messages.getMessage('loglevelFlagDescription')})
+    loglevel: flags.string({char: 'l', description: messages.getMessage('loglevelFlagDescription')}),
+    // flag with a value (-n, --connections VALUE)
+    connections: flags.string({char: 'n', description: messages.getMessage('connectionNameFlagDescription')}),
+    // flag with a value (-o, --connectionoverrides VALUE)
+    connectionoverrides: flags.string({char: 'o', description: messages.getMessage('connectionoverridesFlagDescription')})
   };
 
   
@@ -50,16 +54,23 @@ export default class metadatacache extends SfdxCommand {
     const propertyFile : string = this.flags.propertyfile;
     //const json : string = this.flags.propertyFile;
     //const logLevel : string = this.flags.loglevel ? this.flags.loglevel : 'INFO';
-
+    const connections : string = this.flags.connections;
+    const connectionoverrides : string = this.flags.connectionoverrides;
+    
     let provarDxUtils : ProvarDXUtility = new ProvarDXUtility();
     let isValid : boolean = provarDxUtils.validatePropertiesJson(propertyFile);
+    let propertiesInstance = provarDxUtils.getProperties();
+
+    if(connections) {
+      propertiesInstance.connectionName = connections;
+    }
     
-    if(!isValid || provarDxUtils.hasDuplicateConnectionOverride(provarDxUtils.getProperties())) {
+    if(!isValid || provarDxUtils.hasDuplicateConnectionOverride(propertiesInstance)) {
         this.ux.error("Invalid property file. Run command sfdx provar:validate' to know the validation errors");
         return {};
     }
     
-    let properties = this.updatePropertiesWithOverrides(provarDxUtils.getProperties(), metadataLevel, cachePath, propertyFile);
+    let properties = this.updatePropertiesWithOverrides(propertiesInstance, metadataLevel, cachePath, propertyFile, connectionoverrides);
     let rawProperties = JSON.stringify(properties);
 
     let updateProperties = provarDxUtils.prepareRawProperties(rawProperties);
@@ -69,6 +80,7 @@ export default class metadatacache extends SfdxCommand {
       this.ux.error('[ERROR] No valid user org found to download metadata. Terminating command.');
       return {};
     }
+
     let userInfoString = provarDxUtils.prepareRawProperties(JSON.stringify({'dxUsers': userInfo}));
     let jarPath = properties.provarHome +'/provardx/provardx.jar';
     execSync('java -cp "' + jarPath + '" com.provar.provardx.DxCommandExecuter ' + updateProperties + " " + userInfoString + " " + "Metadata", 
@@ -76,10 +88,23 @@ export default class metadatacache extends SfdxCommand {
     return {};
   }
 
-  public updatePropertiesWithOverrides(properties: any, metadataLevel: string, cachePath: string, propertyFile: string) {
+  public updatePropertiesWithOverrides(properties: any, metadataLevel: string, cachePath: string, propertyFile: string,
+    connectionOverrides: string) {
     properties.metadata.metadataLevel = metadataLevel == null ? properties.metadata.metadataLevel : metadataLevel;
     properties.metadata.cachePath = cachePath == null ? properties.metadata.cachePath: cachePath;
     properties.propertyFile = propertyFile == null ? properties.propertyFile: propertyFile;
+    this.doConnectionOverrides(properties, connectionOverrides);
+    console.log(properties.connectionOverride.length)
     return properties;
+  }
+  
+  private doConnectionOverrides(properties: any, connectionOverride : string): void {
+    let overrides = connectionOverride.split(",");
+    let connOver = [];
+    for(let i=0;i<overrides.length;i++) {
+      let v = overrides[0].split(":");
+      connOver.push ({'connection': v[0], 'username': v[1]});
+    }
+    properties.connectionOverride = connOver;
   }
 }

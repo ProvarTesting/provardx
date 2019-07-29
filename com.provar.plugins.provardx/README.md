@@ -30,23 +30,24 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx provar:compile [-p <string>] [-h <string>] [-p <string>] [--json] [-l <string>]`](#sfdx-provarcompile--p-string--h-string--p-string---json--l-string)
-* [`sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [--json] [-l <string>]`](#sfdx-provarmetadatacache--m-string--c-string--p-string---json--l-string)
+* [`sfdx provar:compile [-p <string>] [-h <string>] [-c <string>] [--json] [-l <string>]`](#sfdx-provarcompile--p-string--h-string--c-string---json--l-string)
+* [`sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l <string>]`](#sfdx-provarmetadatacache--m-string--c-string--p-string--n-string--o-string---json--l-string)
 * [`sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] [-l <string>]`](#sfdx-provarruntests--f-string--p-string--o-string--c-string--m-string--s-string---json--l-string)
+* [`sfdx provar:test [-p <string>] [--json] [-l <string>]`](#sfdx-provartest--p-string---json--l-string)
 * [`sfdx provar:validate [-p <string>] [--json] [-l <string>]`](#sfdx-provarvalidate--p-string---json--l-string)
 
-## `sfdx provar:compile [-p <string>] [-h <string>] [-p <string>] [--json] [-l <string>]`
+## `sfdx provar:compile [-p <string>] [-h <string>] [-c <string>] [--json] [-l <string>]`
 
 Pre-compiles any /src PageObject or PageControl Java source files into object code to use in runtests
 
 ```
 USAGE
-  $ sfdx provar:compile [-p <string>] [-h <string>] [-p <string>] [--json] [-l <string>]
+  $ sfdx provar:compile [-p <string>] [-h <string>] [-c <string>] [--json] [-l <string>]
 
 OPTIONS
+  -c, --projectpath=projectpath    Specify project path override
   -h, --provarhome=provarhome      Specify provar home override
   -l, --loglevel=loglevel          Specify log level for command output
-  -p, --projectpath=projectpath    Specify project path override
   -p, --propertyfile=propertyfile  Specify custom property file.
   --json                           format output as json
 
@@ -56,24 +57,29 @@ EXAMPLE
 
 _See code: [src\commands\provar\compile.ts](https://github.com/provardx/provardx/blob/v0.0.1/src\commands\provar\compile.ts)_
 
-## `sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [--json] [-l <string>]`
+## `sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l <string>]`
 
 Command to pre-download any required metadata for a specified user or provar connections.
 
 ```
 USAGE
-  $ sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [--json] [-l <string>]
+  $ sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l 
+  <string>]
 
 OPTIONS
-  -c, --cachepath=cachepath          Relative or full file path for where the metadata cache will be stored.
-  -l, --loglevel=loglevel            Specify the log level for command
+  -c, --cachepath=cachepath                      Relative or full file path for where the metadata cache will be stored.
+  -l, --loglevel=loglevel                        Specify the log level for command
 
-  -m, --metadatalevel=metadatalevel  Permitted values reload (get all metadata - default) | refresh (only download
-                                     changes).
+  -m, --metadatalevel=metadatalevel              Permitted values reload (get all metadata - default) | refresh (only
+                                                 download changes).
 
-  -p, --propertyfile=propertyfile    Specify custom property file.
+  -n, --connections=connections                  Specify the name of connection for which metadata to be downloaded.
 
-  --json                             format output as json
+  -o, --connectionoverrides=connectionoverrides  Specify the name of connection for which metadata to be downloaded.
+
+  -p, --propertyfile=propertyfile                Specify custom property file.
+
+  --json                                         format output as json
 
 EXAMPLE
   $ sfdx provar:metadatacache -m 'refresh' -c './metadata' -f './myproperties.json'
@@ -124,6 +130,34 @@ EXAMPLE
 ```
 
 _See code: [src\commands\provar\runtests.ts](https://github.com/provardx/provardx/blob/v0.0.1/src\commands\provar\runtests.ts)_
+
+## `sfdx provar:test [-p <string>] [--json] [-l <string>]`
+
+Validate the provardx property file agains standard JSON Schema
+
+```
+USAGE
+  $ sfdx provar:test [-p <string>] [--json] [-l <string>]
+
+OPTIONS
+  -l, --loglevel=loglevel          Allow to provide loglevels.
+  -p, --propertyfile=propertyfile  Specify custom property file.
+  --json                           format output as json
+
+EXAMPLES
+  $ sfdx provar:validate
+       Property file is valid.
+    
+  $ sfdx provar:validate --json
+       Invalid property file.
+       [Detailed validation error shown]
+    
+  $ sfdx provar:validate -p './provardx-properties.json' --json
+       Invalid property file.
+       [Detailed validation error shown]
+```
+
+_See code: [src\commands\provar\test.ts](https://github.com/provardx/provardx/blob/v0.0.1/src\commands\provar\test.ts)_
 
 ## `sfdx provar:validate [-p <string>] [--json] [-l <string>]`
 

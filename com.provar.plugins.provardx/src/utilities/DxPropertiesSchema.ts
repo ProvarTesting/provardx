@@ -17,8 +17,18 @@ export const schema = {
         "description": "The fully qualified path of the folder to which Provar will write the test results",
         "type": "string"
       },
-      "outputLevel": {
-        "description": "Controls the amount of test output logged to the ANT test log.",
+      "resultsPathDisposition": {
+        "description": "Controls the result folder disposition.",
+        "type": "string",
+        "enum": ["Increment","Replace","Fail"]
+      },
+      "testOutputLevel": {
+        "description": "Controls the amount of test output logged to the DX test log.",
+        "type": "string",
+        "enum": ["SEVERE","WARNING","INFO","FINE","FINER","FINEST"]
+      },
+      "pluginOutputlevel": {
+        "description": "Controls the amount of plugin output logged to the DX test log.",
         "type": "string",
         "enum": ["SEVERE","WARNING","INFO","FINE","FINER","FINEST"]
       },
@@ -70,6 +80,41 @@ export const schema = {
           "webBrowserConfig": {
             "description": "The web browser window size. Browser configurations are defined in Test Settings",
             "type": "string"
+          },
+          "webBrowserProviderName": {
+            "description": "Web browser provider name.",
+            "type": "string"
+          },
+          "webBrowserDeviceName": {
+            "description": "Web browser device name",
+            "type": "string"
+          }
+        }
+      },
+      "testprojectSecrets": {
+        "description": "Testproject secret encryption password.",
+        "type": "string"
+      },
+      "environmentsSecrets": {
+        "description": "Test environment secret encryption password.",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "secretsPassword": {"type": "string"}
+          }
+        }
+      },
+      "testplanFeatures": {
+        "description": "Test plan features.",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "type": {"type": "string"},
+            "enabled": {"type": "string"}
           }
         }
       },

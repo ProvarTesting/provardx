@@ -3,6 +3,7 @@ import { execSync } from 'child_process';
 import { Messages } from '@salesforce/core';
 import { SfdxCommand, flags } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
+import { cli } from 'cli-ux';
 
 
 /**
@@ -54,9 +55,17 @@ export default class runtests extends SfdxCommand {
       //const logLevel : string = this.flags.loglevel;
       //const json : string = this.flags.json;
 
+     
       let provarDxUtils : ProvarDXUtility = new ProvarDXUtility();
       let isValid : boolean = provarDxUtils.validatePropertiesJson(propertyFile);
-
+      
+      if(provarDxUtils.getProperties().testPlan && provarDxUtils.getProperties().connectionOverride) {
+        const selection = await cli.prompt( 'Test plans detected, connection overrides will be ignored, do you wish to continue (Y/N)? ' );
+        if(selection === 'n' || selection === 'n') {
+          return {};
+        }
+      }
+      
       if(!isValid || provarDxUtils.hasDuplicateConnectionOverride(provarDxUtils.getProperties())) {
           this.ux.error("Invalid property file. Run command sfdx provar:validate' to know the validation errors");
           return {};
