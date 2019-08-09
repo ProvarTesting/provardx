@@ -94,11 +94,13 @@ export default class metadatacache extends SfdxCommand {
     properties.metadata.cachePath = cachePath == null ? properties.metadata.cachePath: cachePath;
     properties.propertyFile = propertyFile == null ? properties.propertyFile: propertyFile;
     this.doConnectionOverrides(properties, connectionOverrides);
-    console.log(properties.connectionOverride.length)
     return properties;
   }
   
   private doConnectionOverrides(properties: any, connectionOverride : string): void {
+    if(!connectionOverride) {
+      return;
+    }
     let overrides = connectionOverride.split(",");
     let connOver = [];
     for(let i=0;i<overrides.length;i++) {
