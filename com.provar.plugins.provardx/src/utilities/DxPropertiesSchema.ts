@@ -13,6 +13,10 @@ export const schema = {
         "description": "The fully qualified path of the Test Project containing the tests to be run.  This is the folder that contains the .testproject file",
         "type": "string"
       },
+      "smtpPath": {
+        "description": "The fully qualified path of the .smtp folder to which Provar will use to send emails",
+        "type": "string"
+      },
       "resultsPath": {
         "description": "The fully qualified path of the folder to which Provar will write the test results",
         "type": "string"
