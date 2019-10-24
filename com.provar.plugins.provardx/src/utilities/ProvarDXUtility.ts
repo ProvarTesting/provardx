@@ -98,7 +98,7 @@ export default class ProvarDXUtility {
                 jsonDxUser = JSON.parse(dxUserInfo.toString());
             }
             jsonDxUser.result.connection = overrides[i]['connection'];
-            jsonDxUser.result.password = jsonDxUser.result.password.replace('&', '"&"'); //replacing '&' with its ASCII value, '&' caused arguments to truncate when passed to java args.
+            jsonDxUser.result.password = this.handleSpecialCharacters(jsonDxUser.result.password);
             dxUsers.push(jsonDxUser);
         }
         if (dxUsers.length === 0) {
@@ -132,5 +132,14 @@ export default class ProvarDXUtility {
                 cli.action.stop(isSucessful ? 'successful' : 'failed');
             }
         }
+    }
+
+    private handleSpecialCharacters(password: string): string {
+        if (password) {
+             password = password.split('&').join('"&"');
+             password = password.split('|').join('"|"');
+             password = password.split('^').join('"^"');
+        }
+        return password;
     }
 }
