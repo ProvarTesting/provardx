@@ -1,5 +1,4 @@
-@provartesting/provardx
-=======================
+# @provartesting/provardx
 
 sfdx custom plugin to run provar testcases
 
@@ -13,28 +12,32 @@ sfdx custom plugin to run provar testcases
 [![License](https://img.shields.io/npm/l/@provartesting/provardx.svg)](https://github.com/provardx/provardx/blob/master/package.json)
 
 <!-- toc -->
-* [Debugging your plugin](#debugging-your-plugin)
-<!-- tocstop -->
-<!-- install -->
-<!-- usage -->
+
+-   [@provartesting/provardx](#provartestingprovardx)
+-   [Debugging your plugin](#debugging-your-plugin)
+    <!-- tocstop -->
+            <!-- install -->
+            <!-- usage -->
+
 ```sh-session
 $ npm install -g @provartesting/provardx
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-@provartesting/provardx/0.0.1 win32-x64 node-v10.15.3
+@provartesting/provardx/0.0.1 darwin-x64 node-v12.1.0
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
 ...
 ```
+
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx provar:compile [-p <string>] [-h <string>] [-c <string>] [--json] [-l <string>]`](#sfdx-provarcompile--p-string--h-string--c-string---json--l-string)
-* [`sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l <string>]`](#sfdx-provarmetadatacache--m-string--c-string--p-string--n-string--o-string---json--l-string)
-* [`sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] [-l <string>]`](#sfdx-provarruntests--f-string--p-string--o-string--c-string--m-string--s-string---json--l-string)
-* [`sfdx provar:test [-p <string>] [--json] [-l <string>]`](#sfdx-provartest--p-string---json--l-string)
-* [`sfdx provar:validate [-p <string>] [--json] [-l <string>]`](#sfdx-provarvalidate--p-string---json--l-string)
+
+-   [`sfdx provar:compile [-p <string>] [-h <string>] [-c <string>] [--json] [-l <string>]`](#sfdx-provarcompile--p-string--h-string--c-string---json--l-string)
+-   [`sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l <string>]`](#sfdx-provarmetadatacache--m-string--c-string--p-string--n-string--o-string---json--l-string)
+-   [`sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] [-l <string>]`](#sfdx-provarruntests--f-string--p-string--o-string--c-string--m-string--s-string---json--l-string)
+-   [`sfdx provar:validate [-p <string>] [--json] [-l <string>]`](#sfdx-provarvalidate--p-string---json--l-string)
 
 ## `sfdx provar:compile [-p <string>] [-h <string>] [-c <string>] [--json] [-l <string>]`
 
@@ -55,7 +58,7 @@ EXAMPLE
   $ sfdx provar:compile -p './myproperties.json' --json --loglevel SEVERE
 ```
 
-_See code: [src\commands\provar\compile.ts](https://github.com/provardx/provardx/blob/v0.0.1/src\commands\provar\compile.ts)_
+_See code: [src/commands/provar/compile.ts](https://github.com/provardx/provardx/blob/v0.0.1/src/commands/provar/compile.ts)_
 
 ## `sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l <string>]`
 
@@ -63,7 +66,7 @@ Command to pre-download any required metadata for a specified user or provar con
 
 ```
 USAGE
-  $ sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l 
+  $ sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l
   <string>]
 
 OPTIONS
@@ -75,7 +78,8 @@ OPTIONS
 
   -n, --connections=connections                  Specify the name of connection for which metadata to be downloaded.
 
-  -o, --connectionoverrides=connectionoverrides  Specify the name of connection for which metadata to be downloaded.
+  -o, --connectionoverrides=connectionoverrides  Specify comma seperated values for connection overrides, eg
+                                                 Admin:test@provar.com,Reg:test1@provar.com
 
   -p, --propertyfile=propertyfile                Specify custom property file.
 
@@ -85,7 +89,7 @@ EXAMPLE
   $ sfdx provar:metadatacache -m 'refresh' -c './metadata' -f './myproperties.json'
 ```
 
-_See code: [src\commands\provar\metadatacache.ts](https://github.com/provardx/provardx/blob/v0.0.1/src\commands\provar\metadatacache.ts)_
+_See code: [src/commands/provar/metadatacache.ts](https://github.com/provardx/provardx/blob/v0.0.1/src/commands/provar/metadatacache.ts)_
 
 ## `sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] [-l <string>]`
 
@@ -93,7 +97,7 @@ Runs the specified list of Provar test cases against the currently configured SF
 
 ```
 USAGE
-  $ sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] 
+  $ sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json]
   [-l <string>]
 
 OPTIONS
@@ -129,35 +133,7 @@ EXAMPLE
   $ sfdx provar:runtests -f './myproperties.json'
 ```
 
-_See code: [src\commands\provar\runtests.ts](https://github.com/provardx/provardx/blob/v0.0.1/src\commands\provar\runtests.ts)_
-
-## `sfdx provar:test [-p <string>] [--json] [-l <string>]`
-
-Validate the provardx property file agains standard JSON Schema
-
-```
-USAGE
-  $ sfdx provar:test [-p <string>] [--json] [-l <string>]
-
-OPTIONS
-  -l, --loglevel=loglevel          Allow to provide loglevels.
-  -p, --propertyfile=propertyfile  Specify custom property file.
-  --json                           format output as json
-
-EXAMPLES
-  $ sfdx provar:validate
-       Property file is valid.
-    
-  $ sfdx provar:validate --json
-       Invalid property file.
-       [Detailed validation error shown]
-    
-  $ sfdx provar:validate -p './provardx-properties.json' --json
-       Invalid property file.
-       [Detailed validation error shown]
-```
-
-_See code: [src\commands\provar\test.ts](https://github.com/provardx/provardx/blob/v0.0.1/src\commands\provar\test.ts)_
+_See code: [src/commands/provar/runtests.ts](https://github.com/provardx/provardx/blob/v0.0.1/src/commands/provar/runtests.ts)_
 
 ## `sfdx provar:validate [-p <string>] [--json] [-l <string>]`
 
@@ -175,31 +151,37 @@ OPTIONS
 EXAMPLES
   $ sfdx provar:validate
        Property file is valid.
-    
+
   $ sfdx provar:validate --json
        Invalid property file.
        [Detailed validation error shown]
-    
+
   $ sfdx provar:validate -p './provardx-properties.json' --json
        Invalid property file.
        [Detailed validation error shown]
 ```
 
-_See code: [src\commands\provar\validate.ts](https://github.com/provardx/provardx/blob/v0.0.1/src\commands\provar\validate.ts)_
+_See code: [src/commands/provar/validate.ts](https://github.com/provardx/provardx/blob/v0.0.1/src/commands/provar/validate.ts)_
+
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
+
 # Debugging your plugin
+
 We recommend using the Visual Studio Code (VS Code) IDE for your plugin development. Included in the `.vscode` directory of this plugin is a `launch.json` config file, which allows you to attach a debugger to the node process when running your commands.
 
-To debug the `hello:org` command: 
+To debug the `hello:org` command:
+
 1. Start the inspector
-  
-If you linked your plugin to the sfdx cli, call your command with the `dev-suspend` switch: 
+
+If you linked your plugin to the sfdx cli, call your command with the `dev-suspend` switch:
+
 ```sh-session
 $ sfdx hello:org -u myOrg@example.com --dev-suspend
 ```
-  
+
 Alternatively, to call your command using the `bin/run` script, set the `NODE_OPTIONS` environment variable to `--inspect-brk` when starting the debugger:
+
 ```sh-session
 $ NODE_OPTIONS=--inspect-brk bin/run hello:org -u myOrg@example.com
 ```
@@ -207,7 +189,7 @@ $ NODE_OPTIONS=--inspect-brk bin/run hello:org -u myOrg@example.com
 2. Set some breakpoints in your command code
 3. Click on the Debug icon in the Activity Bar on the side of VS Code to open up the Debug view.
 4. In the upper left hand corner of VS Code, verify that the "Attach to Remote" launch configuration has been chosen.
-5. Hit the green play button to the left of the "Attach to Remote" launch configuration window. The debugger should now be suspended on the first line of the program. 
+5. Hit the green play button to the left of the "Attach to Remote" launch configuration window. The debugger should now be suspended on the first line of the program.
 6. Hit the green play button at the top middle of VS Code (this play button will be to the right of the play button that you clicked in step #5).
-<br><img src=".images/vscodeScreenshot.png" width="480" height="278"><br>
-Congrats, you are debugging!
+   <br><img src=".images/vscodeScreenshot.png" width="480" height="278"><br>
+   Congrats, you are debugging!
