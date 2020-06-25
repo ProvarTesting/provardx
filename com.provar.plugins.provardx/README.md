@@ -22,7 +22,7 @@ $ npm install -g @provartesting/provardx
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-@provartesting/provardx/0.0.1-beta.1 darwin-x64 node-v12.1.0
+@provartesting/provardx/0.0.1 darwin-x64 node-v12.1.0
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -54,7 +54,7 @@ EXAMPLE
   $ sfdx provar:compile -p './myproperties.json' --json --loglevel SEVERE
 ```
 
-_See code: [src/commands/provar/compile.ts](https://github.com/provardx/provardx/blob/v0.0.1-beta.1/src/commands/provar/compile.ts)_
+_See code: [src/commands/provar/compile.ts](https://github.com/provardx/provardx/blob/v0.0.1/src/commands/provar/compile.ts)_
 
 ## `sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l <string>]`
 
@@ -85,7 +85,7 @@ EXAMPLE
   $ sfdx provar:metadatacache -m 'refresh' -c './metadata' -f './myproperties.json'
 ```
 
-_See code: [src/commands/provar/metadatacache.ts](https://github.com/provardx/provardx/blob/v0.0.1-beta.1/src/commands/provar/metadatacache.ts)_
+_See code: [src/commands/provar/metadatacache.ts](https://github.com/provardx/provardx/blob/v0.0.1/src/commands/provar/metadatacache.ts)_
 
 ## `sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] [-l <string>]`
 
@@ -129,7 +129,7 @@ EXAMPLE
   $ sfdx provar:runtests -f './myproperties.json'
 ```
 
-_See code: [src/commands/provar/runtests.ts](https://github.com/provardx/provardx/blob/v0.0.1-beta.1/src/commands/provar/runtests.ts)_
+_See code: [src/commands/provar/runtests.ts](https://github.com/provardx/provardx/blob/v0.0.1/src/commands/provar/runtests.ts)_
 
 ## `sfdx provar:validate [-p <string>] [--json] [-l <string>]`
 
@@ -157,7 +157,7 @@ EXAMPLES
        [Detailed validation error shown]
 ```
 
-_See code: [src/commands/provar/validate.ts](https://github.com/provardx/provardx/blob/v0.0.1-beta.1/src/commands/provar/validate.ts)_
+_See code: [src/commands/provar/validate.ts](https://github.com/provardx/provardx/blob/v0.0.1/src/commands/provar/validate.ts)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 
