@@ -2,11 +2,7 @@
     "extends": "./node_modules/@salesforce/dev-config/tsconfig",
     "compilerOptions": {
         "outDir": "./lib",
-        "rootDir": "./src",
-        "baseUrl": "./",
-        "paths": {
-            "*": ["./node_modules/@salesforce/core/typings/*"]
-        }
+        "rootDir": "./src"
     },
     "include": ["./src/**/*"]
 }
