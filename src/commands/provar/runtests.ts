@@ -1,8 +1,8 @@
 /*
  * Copyright (c) 2020 Make Positive Provar Ltd
  * All rights reserved.
- * Licensed under the MIT license.
- * For full license text, see LICENSE.md file in the repo root or https://opensource.org/licenses/MIT
+ * Licensed under the BSD 3-Clause license.
+ * For full license text, see LICENSE.md file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
 import { flags, SfdxCommand } from '@salesforce/command';
@@ -92,7 +92,7 @@ export default class RunTests extends SfdxCommand {
             const selection = await cli.prompt(
                 'Test plans detected, connection overrides will be ignored, do you wish to continue (Y/N)? '
             );
-            if (selection === 'n' || selection === 'n') {
+            if (selection.toLowerCase() === 'n') {
                 return {};
             }
         }
