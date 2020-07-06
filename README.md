@@ -1,8 +1,7 @@
 # provartesting/provardx
 
-ProvarDX is a Salesforce CLI Plugin for existing Provar customer to allow them to execute Provar Test Cases from the command line and leveraging the Salesforce CLI and SalesforceDX applications. This provides an alternative mechanism to running test cases than running under ANT.
-
-The ProvarDX CLI plugin is a free to use command library that leverages the commercial Provar Runtime library. You must be a Provar customer with a valid paid license to write and maintain your test cases.
+ProvarDX is a Salesforce CLI Plugin for existing Provar customer to allow them to execute Provar Test Cases from the command line, leveraging the Salesforce CLI and SalesforceDX applications. This provides an alternative mechanism for running test cases than running under ANT.
+You must be a Provar customer with a valid paid license to write and maintain your test cases.
 
 [![Version](https://img.shields.io/npm/v/@provartesting/provardx.svg)](https://npmjs.org/package/@provartesting/provardx)
 [![Downloads/week](https://img.shields.io/npm/dw/@provartesting/provardx.svg)](https://npmjs.org/package/@provartesting/provardx)
@@ -16,19 +15,36 @@ Install the plugin into your Salesforce CLI using this command:
 $ sfdx plugins:install @provartesting/provardx
 ```
 
-You can check a successful installation with `sfdx plugins`. Updates are applied when executing `sfdx plugins:update`.
+To check list of installed plugins and their versions use following command:
+
+```sh-session
+$ sfdx plugins
+```
+
+To update the sdfx plugin use following command:
+
+```sh-session
+$ sfdx plugins:update
+```
+
+Uninstall the plugin using this command:
+
+```sh-session
+$ sfdx plugins:uninstall @provartesting/provardx
+```
+
+By default, the Salesforce CLI periodically checks for and installs updates for sfdx and the salesforcedx plug-in. To disable sfdx auto-update, set the `SFDX_AUTOUPDATE_DISABLE` environment variable to true.
 
 <!-- install -->
 
 ## Commands
 
-<!-- commands -->
-* [`sfdx provar:compile [-p <string>] [-h <string>] [-c <string>] [--json] [-l <string>]`](#sfdx-provarcompile--p-string--h-string--c-string---json--l-string)
-* [`sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l <string>]`](#sfdx-provarmetadatacache--m-string--c-string--p-string--n-string--o-string---json--l-string)
-* [`sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] [-l <string>]`](#sfdx-provarruntests--f-string--p-string--o-string--c-string--m-string--s-string---json--l-string)
-* [`sfdx provar:validate [-p <string>] [--json] [-l <string>]`](#sfdx-provarvalidate--p-string---json--l-string)
+* [`sfdx provar:compile`](#sfdx-provarcompile)
+* [`sfdx provar:metadatacache`](#sfdx-provarmetadatacache)
+* [`sfdx provar:runtests`](#sfdx-provarruntests)
+* [`sfdx provar:validate`](#sfdx-provarvalidate)
 
-## `sfdx provar:compile [-p <string>] [-h <string>] [-c <string>] [--json] [-l <string>]`
+## `sfdx provar:compile`
 
 Pre-compiles any /src PageObject or PageControl Java source files into object code to use in runtests
 
@@ -47,9 +63,7 @@ EXAMPLE
   $ sfdx provar:compile -p './myproperties.json' --json --loglevel SEVERE
 ```
 
-_See code: [src/commands/provar/compile.ts](https://github.com/ProvarTesting/provardx/blob/v0.0.1/src/commands/provar/compile.ts)_
-
-## `sfdx provar:metadatacache [-m <string>] [-c <string>] [-p <string>] [-n <string>] [-o <string>] [--json] [-l <string>]`
+## `sfdx provar:metadatacache`
 
 Command to pre-download any required metadata for a specified user or provar connections.
 
@@ -78,9 +92,7 @@ EXAMPLE
   $ sfdx provar:metadatacache -m 'refresh' -c './metadata' -f './myproperties.json'
 ```
 
-_See code: [src/commands/provar/metadatacache.ts](https://github.com/ProvarTesting/provardx/blob/v0.0.1/src/commands/provar/metadatacache.ts)_
-
-## `sfdx provar:runtests [-f <string>] [-p <string>] [-o <string>] [-c <string>] [-m <string>] [-s <string>] [--json] [-l <string>]`
+## `sfdx provar:runtests`
 
 Runs the specified list of Provar test cases against the currently configured SFDX defaultuserrname
 
@@ -122,9 +134,7 @@ EXAMPLE
   $ sfdx provar:runtests -f './myproperties.json'
 ```
 
-_See code: [src/commands/provar/runtests.ts](https://github.com/ProvarTesting/provardx/blob/v0.0.1/src/commands/provar/runtests.ts)_
-
-## `sfdx provar:validate [-p <string>] [--json] [-l <string>]`
+## `sfdx provar:validate`
 
 Validate the provardx property file agains standard JSON Schema
 
@@ -149,6 +159,3 @@ EXAMPLES
        Invalid property file.
        [Detailed validation error shown]
 ```
-
-_See code: [src/commands/provar/validate.ts](https://github.com/ProvarTesting/provardx/blob/v0.0.1/src/commands/provar/validate.ts)_
-<!-- commandsstop -->
