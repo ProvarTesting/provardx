@@ -25,11 +25,13 @@
 
 ### Merging `development` into `master`
 
-We're following Gitflow: _topic_ branches (feature or bug-fix) -> `development` -> `master`.
+-   When a development cycle finishes, the content of the `development` branch will be merged in `master` branch.
 
--   _topic_ branches: based on development and implement changes for new features or bug fix.
--   `development`: main development branch where all topic branches are merged for ongoing development.
--   `master`: production branch of what has been released. Tags will also be created for release versions.
+```
+$ git checkout master
+$ git merge development
+$ git push -u origin master
+```
 
 ## Pull Requests
 
