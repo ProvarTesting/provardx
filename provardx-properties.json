@@ -1,0 +1,35 @@
+{
+    "provarHome": "/app/Provar/Eclipse",
+    "projectPath": "/usr/Admin/Provar/MyProject",
+    "resultsPath": "/usr/Admin/Provar/MyProject/Results",
+    "outputLevel": "SEVERE",
+    "excludeCallable": true,
+    "stopOnError": true,
+    "lightningMode": true,
+    "connectionRefreshType": "Reload",
+    "metadata": {
+        "metadataLevel": "Reuse",
+        "cachePath": "/usr/Admin/Provar/Cache"
+    },
+    "environment": {
+        "testEnvironment": "UAT",
+        "webBrowser": "Chrome",
+        "webBrowserConfig": "Full Screen"
+    },
+    "email": {
+        "sendEmail": true,
+        "toRecipients": ["abc@example.com", "bcd@example.com"],
+        "ccRecipients": ["cde@example.com"],
+        "bccRecipients": ["def@example.com", "efg@example.com"]
+    },
+    "testPlan": ["plan1", "plan2", "./plans/*"],
+    "testCase": [
+        "tc1.testcase",
+        "tc2.testcase",
+        "./tests/Lightning/*.testcase"
+    ],
+    "connectionOverride": [
+        { "connection": "Admin", "username": "admin123@example.com" },
+        { "connection": "Sales", "username": "SalesUser1" }
+    ]
+}
