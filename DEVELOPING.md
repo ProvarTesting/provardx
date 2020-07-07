@@ -6,7 +6,7 @@
 1. Provar should be installed on the machine
 1. There should be a provardx folder with provardx.jar available in the installation directory
 1. sfdx cli should be installed on machine (https://developer.salesforce.com/tools/sfdxcli)
-1. Install Yarn `npm install -g yarn`.
+1. Install Yarn globally using `npm install -g yarn`.
 
 ## Typical workflow
 
@@ -14,8 +14,8 @@
 1. `cd` into `provardx`
 1. We develop on the `development` branch and release from the `master` branch. Checkout
    development branch `git checkout -t origin/development`.
-1. `yarn install` to bring in all the top-level dependencies
-1. `sfdx plugins:link` to link the plugins with sfdx cli
+1. `yarn` to bring in all the top-level dependencies
+1. `sfdx plugins:link` to link the plugins with `sfdx cli`
 
 ## List of Useful commands
 
