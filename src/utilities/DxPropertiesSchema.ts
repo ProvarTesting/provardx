@@ -96,7 +96,14 @@ export const schema = {
                 webBrowser: {
                     description: 'The web browser to be used for UI testing',
                     type: 'string',
-                    enum: ['Chrome', 'Edge', 'Firefox', 'SAFARI', 'IE']
+                    enum: [
+                        'Chrome',
+                        'Edge',
+                        'Firefox',
+                        'SAFARI',
+                        'IE',
+                        'Chrome_Headless'
+                    ]
                 },
                 webBrowserConfig: {
                     description:
