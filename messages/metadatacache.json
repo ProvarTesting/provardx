@@ -1,5 +1,5 @@
 {
-    "commandDescription": "Command to pre-download any required metadata for a specified user or provar connections.",
+    "commandDescription": "Command to pre-download any required metadata for a specified user or provar connection",
     "metadataLevelFlagDescription": "Permitted values reload (get all metadata - default) | refresh (only download changes).",
     "cachePathFlagDescription": "Relative or full file path for where the metadata cache will be stored.",
     "propertyFileFlagDescription": "Specify custom property file.",
