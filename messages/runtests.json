@@ -1,5 +1,5 @@
 {
-    "commandDescription": "Runs the specified list of Provar test cases against the currently configured SFDX defaultuserrname",
+    "commandDescription": "Runs a specified list of Provar test cases against a specified DevHub user alias or username",
     "propertyFileFlagDescription": "provardx-properties.json file. If filepath specified the filename will be assumed or it can be specified (.e.g myprops.json). File must be in JSON format and conform to the provardx-properties JSON schema.",
     "fileSpecFlagDescription": "Specify comma-delimited, ordered paths of test cases to be executed. If not provided all tests in the PROJECTPATH will be executed.",
     "connectionOverridefile": "Connection file in the format provardx-connection-schema.json providing a mapping between the Provar project Connection names and the target users to be used.",

@@ -65,7 +65,7 @@ EXAMPLE
 
 ## `sfdx provar:metadatacache`
 
-Command to pre-download any required metadata for a specified user or provar connections.
+Command to pre-download any required metadata for a specified user or provar connection
 
 ```
 USAGE
@@ -94,7 +94,7 @@ EXAMPLE
 
 ## `sfdx provar:runtests`
 
-Runs the specified list of Provar test cases against the currently configured SFDX defaultuserrname
+Runs a specified list of Provar test cases against a specified DevHub user alias or username
 
 ```
 USAGE
@@ -136,7 +136,7 @@ EXAMPLE
 
 ## `sfdx provar:validate`
 
-Validate the provardx property file agains standard JSON Schema
+Verify a property file to confirm it is a well formed provardx property file
 
 ```
 USAGE

@@ -13,7 +13,7 @@ import { cli } from 'cli-ux';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 
 /**
- * Runs the specified list of Provar test cases against the currently configured SFDX defaultuserrname unless overridden
+ * Runs a specified list of Provar test cases against a specified DevHub user alias or username unless overridden
  * in the command below or by a provardx-properties.json file
  * @author Himanshu Sharma
  *

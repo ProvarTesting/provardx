@@ -1,4 +1,4 @@
-Copyright (c) 2020, ProvarTesting
+Copyright (c) 2020, Make Positive Provar Ltd
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
