@@ -1,7 +1,7 @@
 {
     "name": "@provartesting/provardx",
     "description": "A plugin for the Salesforce CLI to run provar testcases",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "author": "Provar",
     "bugs": "https://github.com/ProvarTesting/provardx/issues",
     "dependencies": {
@@ -51,8 +51,20 @@
         "commands": "./lib/commands",
         "bin": "sfdx",
         "topics": {
-            "hello": {
-                "description": "Commands to say hello."
+            "provar": {
+                "description": "Developer tools for executing Provar tests from a command line and using Salesforce DevHub aliases"
+            },
+            "provar:compile": {
+                "description": "Pre-compiles any /src PageObject or PageControl Java source files into object code to use in runtests"
+            },
+            "provar:metadacache": {
+                "description": "Command to pre-download any required metadata for a specified user or provar connection"
+            },
+            "provar:runtests": {
+                "description": "Runs a specified list of Provar test cases against a specified DevHub user alias or username"
+            },
+            "provar:validate": {
+                "description": "Verify a property file to confirm it is a well formed provardx property file"
             }
         },
         "devPlugins": [
