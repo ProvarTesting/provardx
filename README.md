@@ -1,6 +1,6 @@
-# provartesting/provardx
+# ProvarDX™
 
-ProvarDX is a Salesforce CLI Plugin for existing Provar customer to allow them to execute Provar Test Cases from the command line, leveraging the Salesforce CLI and SalesforceDX applications. This provides an alternative mechanism for running test cases than running under ANT.
+ProvarDX™ is a Salesforce CLI Plugin for existing Provar customer to allow them to execute Provar Test Cases from the command line, leveraging the Salesforce CLI and SalesforceDX applications. This provides an alternative mechanism for running test cases than running under ANT.
 You must be a Provar customer with a valid paid license to write and maintain your test cases.
 
 [![Version](https://img.shields.io/npm/v/@provartesting/provardx.svg)](https://npmjs.org/package/@provartesting/provardx)
