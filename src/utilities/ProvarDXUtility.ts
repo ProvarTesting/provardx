@@ -169,7 +169,7 @@ export default class ProvarDXUtility {
 
     private handleSpecialCharacters(password: string): string {
         if (password) {
-            password = password.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&');
+            password = encodeURIComponent(password);
         }
         return password;
     }
