@@ -126,7 +126,8 @@ OPTIONS
                                                        must be in JSON format and conform to the provardx-properties
                                                        JSON schema.
 
-  -s, --secrets=secrets                                Specify path to secrets file
+  -s, --secrets=secrets                                Specify secrets encryption password. Alternatively, it can be specified
+                                                       in provardx-properties.json file as well.
 
   --json                                               format output as json
 
