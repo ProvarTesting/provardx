@@ -90,9 +90,7 @@ export default class MetadataCache extends SfdxCommand {
             return {};
         }
 
-        if (
-            metadataLevel !== "Reload" && metadataLevel !== "Refresh" && metadataLevel !== "Reuse"
-        ) {
+        (!["Reload", "Refresh", "Reuse"].includes(metadataLevel)) {
             this.ux.error(
                 "ERROR running provar:metadatacache : Please specify a valid metadata level(-m flag). Valid levels are : 'Reuse', 'Refresh' and 'Reload'"
             );
@@ -142,7 +140,7 @@ export default class MetadataCache extends SfdxCommand {
             return {};
         }
 
-        const userInfoString = connections && userInfo == null ? "NA" : provarDxUtils.prepareRawProperties(
+        const userInfoString = connections && userInfo === null ? "NA" : provarDxUtils.prepareRawProperties(
             JSON.stringify({ dxUsers: userInfo })
         );
         const jarPath = properties.provarHome + '/provardx/provardx.jar';
