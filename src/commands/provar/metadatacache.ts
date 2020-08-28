@@ -90,7 +90,7 @@ export default class MetadataCache extends SfdxCommand {
             return {};
         }
 
-        (!["Reload", "Refresh", "Reuse"].includes(metadataLevel)) {
+        if (!["Reload", "Refresh", "Reuse"].includes(metadataLevel)) {
             this.ux.error(
                 "ERROR running provar:metadatacache : Please specify a valid metadata level(-m flag). Valid levels are : 'Reuse', 'Refresh' and 'Reload'"
             );
