@@ -133,7 +133,7 @@ export default class MetadataCache extends SfdxCommand {
         const userInfo = await provarDxUtils.getDxUsersInfo(
             properties.connectionOverride
         );
-        if (userInfo == null && !connections) {
+        if (userInfo === null && !connections) {
             this.ux.error(
                 '[ERROR] No valid user org found to download metadata. Terminating command.'
             );
@@ -191,7 +191,7 @@ export default class MetadataCache extends SfdxCommand {
             const overrides = properties.connectionName.split(',');
             const connOver = [];
             for (const override of properties.connectionOverride) {
-                if (overrides.indexOf(override.connection) != -1) {
+                if (overrides.indexOf(override.connection) !== -1) {
                     connOver.push(override);
                 }
             }
@@ -201,10 +201,10 @@ export default class MetadataCache extends SfdxCommand {
         if (connectionOverride) {
             const overrides = connectionOverride.split(',');
             for (const override of overrides) {
-                const v = override.split(':');
-                const prop = properties.connectionOverride.find(f => f.connection === v[0]);
+                const overrideDetails = override.split(':');
+                const prop = properties.connectionOverride.find(f => f.connection === overrideDetails[0]);
                 if(prop){
-                    prop.username = v[1];
+                    prop.username = overrideDetails[1];
                 }
             }
         }
