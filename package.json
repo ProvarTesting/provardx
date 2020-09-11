@@ -1,7 +1,7 @@
 {
     "name": "@provartesting/provardx",
     "description": "A plugin for the Salesforce CLI to run provar testcases",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "author": "Provar",
     "bugs": "https://github.com/ProvarTesting/provardx/issues",
     "dependencies": {

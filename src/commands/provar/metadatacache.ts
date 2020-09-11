@@ -81,6 +81,22 @@ export default class MetadataCache extends SfdxCommand {
         const connections: string = this.flags.connections;
         const connectionoverrides: string = this.flags.connectionoverrides;
 
+        if (
+            !metadataLevel || !cachePath
+        ) {
+            this.ux.error(
+                "ERROR running provar:metadatacache :  Please specify a cachepath and metadatalevel"
+            );
+            return {};
+        }
+
+        if (!["Reload", "Refresh", "Reuse"].includes(metadataLevel)) {
+            this.ux.error(
+                "ERROR running provar:metadatacache : Please specify a valid metadata level(-m flag). Valid levels are : 'Reuse', 'Refresh' and 'Reload'"
+            );
+            return {};
+        }
+
         const provarDxUtils: ProvarDXUtility = new ProvarDXUtility();
         const isValid: boolean = provarDxUtils.validatePropertiesJson(
             propertyFile
@@ -96,7 +112,7 @@ export default class MetadataCache extends SfdxCommand {
             provarDxUtils.hasDuplicateConnectionOverride(propertiesInstance)
         ) {
             this.ux.error(
-                "Invalid property file. Run command sfdx provar:validate' to know the validation errors"
+                "ERROR running provar:metadatacache : Please specify a valid property file. Run command sfdx provar:validate' to know the validation errors"
             );
             return {};
         }
@@ -117,26 +133,26 @@ export default class MetadataCache extends SfdxCommand {
         const userInfo = await provarDxUtils.getDxUsersInfo(
             properties.connectionOverride
         );
-        if (userInfo == null) {
+        if (userInfo === null && !connections) {
             this.ux.error(
                 '[ERROR] No valid user org found to download metadata. Terminating command.'
             );
             return {};
         }
 
-        const userInfoString = provarDxUtils.prepareRawProperties(
+        const userInfoString = connections && userInfo === null ? "NA" : provarDxUtils.prepareRawProperties(
             JSON.stringify({ dxUsers: userInfo })
         );
         const jarPath = properties.provarHome + '/provardx/provardx.jar';
         execSync(
             'java -cp "' +
-                jarPath +
-                '" com.provar.provardx.DxCommandExecuter ' +
-                updateProperties +
-                ' ' +
-                userInfoString +
-                ' ' +
-                'Metadata',
+            jarPath +
+            '" com.provar.provardx.DxCommandExecuter ' +
+            updateProperties +
+            ' ' +
+            userInfoString +
+            ' ' +
+            'Metadata',
             { stdio: 'inherit' }
         );
         return {};
@@ -167,15 +183,30 @@ export default class MetadataCache extends SfdxCommand {
         properties: any,
         connectionOverride: string
     ): void {
-        if (!connectionOverride) {
+        if (!connectionOverride && !properties.connectionName) {
             return;
         }
-        const overrides = connectionOverride.split(',');
-        const connOver = [];
-        for (const override of overrides) {
-            const v = override.split(':');
-            connOver.push({ connection: v[0], username: v[1] });
+
+        if (properties.connectionName && properties.connectionOverride) {
+            const overrides = properties.connectionName.split(',');
+            const connOver = [];
+            for (const override of properties.connectionOverride) {
+                if (overrides.indexOf(override.connection) !== -1) {
+                    connOver.push(override);
+                }
+            }
+            properties.connectionOverride = connOver;
         }
-        properties.connectionOverride = connOver;
+
+        if (connectionOverride) {
+            const overrides = connectionOverride.split(',');
+            for (const override of overrides) {
+                const overrideDetails = override.split(':');
+                const prop = properties.connectionOverride.find(f => f.connection === overrideDetails[0]);
+                if(prop){
+                    prop.username = overrideDetails[1];
+                }
+            }
+        }
     }
 }

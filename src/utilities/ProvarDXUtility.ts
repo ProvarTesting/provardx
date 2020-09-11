@@ -169,9 +169,7 @@ export default class ProvarDXUtility {
 
     private handleSpecialCharacters(password: string): string {
         if (password) {
-            password = password.split('&').join('"&"');
-            password = password.split('|').join('"|"');
-            password = password.split('^').join('"^"');
+            password = encodeURIComponent(password);
         }
         return password;
     }
