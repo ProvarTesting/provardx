@@ -102,7 +102,8 @@ export const schema = {
                         'Firefox',
                         'SAFARI',
                         'IE',
-                        'Chrome_Headless'
+                        'Chrome_Headless',
+                        'Edge_Chromium'
                     ]
                 },
                 webBrowserConfig: {
