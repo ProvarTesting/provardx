@@ -48,3 +48,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   ProvarDX Commands: compile, validate, metadatacache, runtests
+
+## [0.3.1] - 2020-09-17
+
+### Added
+
+-   Support for Edge Chromium
