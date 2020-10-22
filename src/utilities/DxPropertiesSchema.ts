@@ -99,7 +99,7 @@ export const schema = {
                         'Chrome',
                         'SAFARI',
                         'Edge',
-                        'Edge_Chromium',
+                        'Edge_Legacy',
                         'Firefox',
                         'IE',
                         'Chrome_Headless'
