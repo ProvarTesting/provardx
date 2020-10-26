@@ -97,12 +97,12 @@ export const schema = {
                     type: 'string',
                     enum: [
                         'Chrome',
-                        'Edge',
-                        'Firefox',
                         'SAFARI',
+                        'Edge',
+                        'Edge_Legacy',
+                        'Firefox',
                         'IE',
-                        'Chrome_Headless',
-                        'Edge_Chromium'
+                        'Chrome_Headless'
                     ]
                 },
                 webBrowserConfig: {
