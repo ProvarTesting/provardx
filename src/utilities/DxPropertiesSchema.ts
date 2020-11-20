@@ -40,8 +40,7 @@ export const schema = {
         testOutputLevel: {
             description:
                 'Controls the amount of test output logged to the DX test log.',
-            type: 'string',
-            enum: ['SEVERE', 'WARNING', 'INFO', 'FINE', 'FINER', 'FINEST']
+            type: 'string'
         },
         pluginOutputlevel: {
             description:
@@ -98,9 +97,10 @@ export const schema = {
                     type: 'string',
                     enum: [
                         'Chrome',
-                        'Edge',
-                        'Firefox',
                         'SAFARI',
+                        'Edge',
+                        'Edge_Legacy',
+                        'Firefox',
                         'IE',
                         'Chrome_Headless'
                     ]
