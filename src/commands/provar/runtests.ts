@@ -10,6 +10,7 @@ import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { execSync } from 'child_process';
 import { cli } from 'cli-ux';
+import ProvarCLIDownloader from '../../utilities/ProvarCLIDownloader';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 
 /**
@@ -79,6 +80,25 @@ export default class RunTests extends SfdxCommand {
         // const secrets : string = this.flags.secrets;
         // const logLevel : string = this.flags.loglevel;
         // const json : string = this.flags.json;
+
+        if (
+            metadataLevel &&
+            !['Reload', 'Refresh', 'Reuse'].includes(metadataLevel)
+        ) {
+            this.ux.error(
+                "ERROR running provar:metadatacache : Please specify a valid metadata level(-m flag). Valid levels are : 'Reuse', 'Refresh' and 'Reload'"
+            );
+            return {};
+        }
+
+        const provarCLIDownloader: ProvarCLIDownloader = new ProvarCLIDownloader();
+        const cliExists = await provarCLIDownloader.verifyProvarCLIVersion(
+            propertyFile
+        );
+        if (!cliExists) {
+            this.ux.error(messages.getMessage('provarCLINotFound'));
+            return {};
+        }
 
         const provarDxUtils: ProvarDXUtility = new ProvarDXUtility();
         const isValid: boolean = provarDxUtils.validatePropertiesJson(

@@ -3,5 +3,6 @@
     "propertyFileFlagDescription": "Specify custom property file.",
     "provarHomeFlagDescription": "Specify provar home override",
     "projectPathFlagDescription": "Specify project path override",
-    "loglevelFlagDescription": "Specify log level for command output"
+    "loglevelFlagDescription": "Specify log level for command output",
+    "provarCLINotFound": "Please download Provar CLI or Studio to run this command."
 }

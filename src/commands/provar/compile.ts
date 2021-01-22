@@ -9,6 +9,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { execSync } from 'child_process';
+import ProvarCLIDownloader from '../../utilities/ProvarCLIDownloader';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 
 /**
@@ -58,6 +59,15 @@ export default class Compile extends SfdxCommand {
             : 'INFO';
         const provarHome: string = this.flags.provarhome;
         const projectPath: string = this.flags.projectpath;
+
+        const provarCLIDownloader: ProvarCLIDownloader = new ProvarCLIDownloader();
+        const cliExists = await provarCLIDownloader.verifyProvarCLIVersion(
+            propertyFile
+        );
+        if (!cliExists) {
+            this.ux.error(messages.getMessage('provarCLINotFound'));
+            return {};
+        }
 
         const provarDxUtils: ProvarDXUtility = new ProvarDXUtility();
         const isValid: boolean = provarDxUtils.validatePropertiesJson(

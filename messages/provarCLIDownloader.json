@@ -1,0 +1,10 @@
+{
+    "cliNotPresent": "ProvarCLI is not present. Do you want us to download? (y/n)",
+    "cliVersionLessThanMinSupportedVersion": "The current version of ProvarCLI %s is less than the minimum supported version. Do you want us to download the latest version %s instead? (y/n)",
+    "cliNewVersionAvailable": "A new version of ProvarCLI is available to download. Do you want us to download the latest version %s instead? (y/n)",
+    "cliVersionNotSupported": "The current version of ProvarCLI %s is not supported with this version of sfdx plugin. Do you want us to download the version %s instead? (y/n)",
+    "enterFolderPath": "Enter folder path to download or press 'Enter' to download in current directory",
+    "provarHome": "Please set PROVER_HOME environment variable to '%s' location to avoid redownloading of Provar CLI in future.",
+    "updateProvarHome": "Do you want us to update the 'provarHome' entry in properties file to: %s? (y/n)",
+    "directoryError": "Can't find directory with name starting with %s"
+}

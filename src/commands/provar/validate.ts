@@ -9,6 +9,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { ValidatorResult } from 'jsonschema';
+import ProvarCLIDownloader from '../../utilities/ProvarCLIDownloader';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 
 /**
@@ -66,6 +67,15 @@ export default class Validate extends SfdxCommand {
         const loglevel: string = this.flags.loglevel
             ? this.flags.loglevel
             : 'INFO';
+
+        const provarCLIDownloader: ProvarCLIDownloader = new ProvarCLIDownloader();
+        const cliExists = await provarCLIDownloader.verifyProvarCLIVersion(
+            propertyFile
+        );
+        if (!cliExists) {
+            this.ux.error(messages.getMessage('provarCLINotFound'));
+            return {};
+        }
 
         const provarDxUtils: ProvarDXUtility = new ProvarDXUtility();
         let isValid: boolean = provarDxUtils.validatePropertiesJson(

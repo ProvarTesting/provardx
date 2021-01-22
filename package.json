@@ -10,6 +10,8 @@
         "@oclif/errors": "^1",
         "@salesforce/command": "^2",
         "@salesforce/core": "^2",
+        "cli-progress": "^3.8.2",
+        "extract-zip": "^2.0.1",
         "jsonschema": "^1.2.4",
         "tslib": "^1"
     },
