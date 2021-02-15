@@ -236,37 +236,27 @@ export default class ProvarCLIDownloader {
             downloadRequired: false,
             downloadMessage: ''
         };
-        if (
-            this.compareVersion(
-                this.PROVAR_CLI_MAX_VERSION,
-                provarCLIVersion
-            ) === 0
-        ) {
+
+        const diffWithMinVersion = this.compareVersion(
+            this.PROVAR_CLI_MIN_VERSION,
+            provarCLIVersion
+        );
+        const diffWithMaxVersion = this.compareVersion(
+            this.PROVAR_CLI_MAX_VERSION,
+            provarCLIVersion
+        );
+
+        if (diffWithMaxVersion === 0) {
             // Intentionally left blank
-        } else if (
-            this.compareVersion(
-                this.PROVAR_CLI_MIN_VERSION,
-                provarCLIVersion
-            ) === 1
-        ) {
+        } else if (diffWithMinVersion === 1) {
             returnObj.downloadRequired = true;
             returnObj.downloadMessage = messages.getMessage(
                 'cliVersionLessThanMinSupportedVersion',
                 [provarCLIVersion, this.PROVAR_CLI_MAX_VERSION]
             );
         } else if (
-            (this.compareVersion(
-                this.PROVAR_CLI_MIN_VERSION,
-                provarCLIVersion
-            ) === 0 ||
-                this.compareVersion(
-                    this.PROVAR_CLI_MIN_VERSION,
-                    provarCLIVersion
-                ) === -1) &&
-            this.compareVersion(
-                this.PROVAR_CLI_MAX_VERSION,
-                provarCLIVersion
-            ) === 1
+            (diffWithMinVersion === 0 || diffWithMinVersion === -1) &&
+            diffWithMaxVersion === 1
         ) {
             returnObj.downloadRequired = false;
             returnObj.downloadMessage = messages.getMessage(
