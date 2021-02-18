@@ -56,10 +56,7 @@ export default class ProvarCLIDownloader {
             }
             const downloadCLI = await cli.confirm(downloadMessage);
             if (!downloadCLI) {
-                if (!downloadRequired) {
-                    return true;
-                }
-                return false;
+                return downloadRequired ? false : true;
             }
             await this.downloadLatestCLI(propertyFile);
         }
@@ -135,10 +132,7 @@ export default class ProvarCLIDownloader {
     private getVersionFromString(content = '') {
         const versionRegex = /[\d]+.[\d]+.[\d]+.[\d]+/;
         const matches = content.match(versionRegex);
-        if (!matches) {
-            return null;
-        }
-        return matches[0];
+        return !matches ? null : matches[0];
     }
 
     private async downloadLatestCLI(propertyFile) {
