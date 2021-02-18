@@ -5,6 +5,7 @@ import * as extractZip from 'extract-zip';
 import * as https from 'https';
 import { Messages } from '@salesforce/core';
 import { cli } from 'cli-ux';
+const compareVersions = require('compare-versions');
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages(
@@ -216,32 +217,17 @@ export default class ProvarCLIDownloader {
         );
     }
 
-    private compareVersion(v1, v2) {
-        if (typeof v1 !== 'string') return false;
-        if (typeof v2 !== 'string') return false;
-        v1 = v1.split('.');
-        v2 = v2.split('.');
-        const length = Math.min(v1.length, v2.length);
-        for (let i = 0; i < length; ++i) {
-            v1[i] = parseInt(v1[i], 10);
-            v2[i] = parseInt(v2[i], 10);
-            if (v1[i] > v2[i]) return 1;
-            if (v1[i] < v2[i]) return -1;
-        }
-        return v1.length == v2.length ? 0 : v1.length < v2.length ? -1 : 1;
-    }
-
     private verifyIsSupportedVersion(provarCLIVersion) {
         const returnObj = {
             downloadRequired: false,
             downloadMessage: ''
         };
 
-        const diffWithMinVersion = this.compareVersion(
+        const diffWithMinVersion = compareVersions(
             this.PROVAR_CLI_MIN_VERSION,
             provarCLIVersion
         );
-        const diffWithMaxVersion = this.compareVersion(
+        const diffWithMaxVersion = compareVersions(
             this.PROVAR_CLI_MAX_VERSION,
             provarCLIVersion
         );
