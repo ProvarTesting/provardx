@@ -9,6 +9,7 @@ import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { AnyJson } from '@salesforce/ts-types';
 import { execSync } from 'child_process';
+import ProvarCLIDownloader from '../../utilities/ProvarCLIDownloader';
 import ProvarDXUtility from '../../utilities/ProvarDXUtility';
 
 /**
@@ -81,19 +82,26 @@ export default class MetadataCache extends SfdxCommand {
         const connections: string = this.flags.connections;
         const connectionoverrides: string = this.flags.connectionoverrides;
 
-        if (
-            !metadataLevel || !cachePath
-        ) {
+        if (!metadataLevel || !cachePath) {
             this.ux.error(
-                "ERROR running provar:metadatacache :  Please specify a cachepath and metadatalevel"
+                'ERROR running provar:metadatacache : Please specify a cachepath and metadatalevel'
             );
             return {};
         }
 
-        if (!["Reload", "Refresh", "Reuse"].includes(metadataLevel)) {
+        if (!['Reload', 'Refresh', 'Reuse'].includes(metadataLevel)) {
             this.ux.error(
                 "ERROR running provar:metadatacache : Please specify a valid metadata level(-m flag). Valid levels are : 'Reuse', 'Refresh' and 'Reload'"
             );
+            return {};
+        }
+
+        const provarCLIDownloader: ProvarCLIDownloader = new ProvarCLIDownloader();
+        const cliExists = await provarCLIDownloader.verifyProvarCLIVersion(
+            propertyFile
+        );
+        if (!cliExists) {
+            this.ux.error(messages.getMessage('provarCLINotFound'));
             return {};
         }
 
@@ -140,19 +148,22 @@ export default class MetadataCache extends SfdxCommand {
             return {};
         }
 
-        const userInfoString = connections && userInfo === null ? "NA" : provarDxUtils.prepareRawProperties(
-            JSON.stringify({ dxUsers: userInfo })
-        );
+        const userInfoString =
+            connections && userInfo === null
+                ? 'NA'
+                : provarDxUtils.prepareRawProperties(
+                      JSON.stringify({ dxUsers: userInfo })
+                  );
         const jarPath = properties.provarHome + '/provardx/provardx.jar';
         execSync(
             'java -cp "' +
-            jarPath +
-            '" com.provar.provardx.DxCommandExecuter ' +
-            updateProperties +
-            ' ' +
-            userInfoString +
-            ' ' +
-            'Metadata',
+                jarPath +
+                '" com.provar.provardx.DxCommandExecuter ' +
+                updateProperties +
+                ' ' +
+                userInfoString +
+                ' ' +
+                'Metadata',
             { stdio: 'inherit' }
         );
         return {};
@@ -202,8 +213,10 @@ export default class MetadataCache extends SfdxCommand {
             const overrides = connectionOverride.split(',');
             for (const override of overrides) {
                 const overrideDetails = override.split(':');
-                const prop = properties.connectionOverride.find(f => f.connection === overrideDetails[0]);
-                if(prop){
+                const prop = properties.connectionOverride.find(
+                    (f) => f.connection === overrideDetails[0]
+                );
+                if (prop) {
                     prop.username = overrideDetails[1];
                 }
             }

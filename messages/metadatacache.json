@@ -1,9 +1,10 @@
 {
-    "commandDescription": "Command to pre-download any required metadata for a specified user or provar connection",
-    "metadataLevelFlagDescription": "Permitted values reload (get all metadata - default) | refresh (only download changes).",
     "cachePathFlagDescription": "Relative or full file path for where the metadata cache will be stored.",
-    "propertyFileFlagDescription": "Specify custom property file.",
-    "loglevelFlagDescription": "Specify the log level for command",
+    "commandDescription": "Command to pre-download any required metadata for a specified user or provar connection",
     "connectionNameFlagDescription": "Specify the name of connection for which metadata to be downloaded.",
-    "connectionoverridesFlagDescription": "Specify comma seperated values for connection overrides, eg Admin:test@provar.com,Reg:test1@provar.com"
+    "connectionoverridesFlagDescription": "Specify comma seperated values for connection overrides, eg Admin:test@provar.com,Reg:test1@provar.com",
+    "loglevelFlagDescription": "Specify the log level for command",
+    "metadataLevelFlagDescription": "Permitted values reload (get all metadata - default) | refresh (only download changes).",
+    "propertyFileFlagDescription": "Specify custom property file.",
+    "provarCLINotFound": "Please download Provar CLI or Studio to run this command."
 }
