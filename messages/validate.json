@@ -1,6 +1,7 @@
 {
     "commandDescription": "Verify a property file to confirm it is a well formed provardx property file",
+    "loglevelFlagDescription": "Allow to provide loglevels.",
     "propertyFileFlagDescription": "Specify custom property file.",
-    "showErrorsFlagDescription": "Allow to show validation errors. Default is false.",
-    "loglevelFlagDescription": "Allow to provide loglevels."
+    "provarCLINotFound": "Please download Provar CLI or Studio to run this command.",
+    "showErrorsFlagDescription": "Allow to show validation errors. Default is false."
 }

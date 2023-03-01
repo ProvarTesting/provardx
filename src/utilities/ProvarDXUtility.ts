@@ -98,7 +98,7 @@ export default class ProvarDXUtility {
             const message =
                 'Validating and retriving dx user info: ' + username;
             let dxUserInfo = await this.executeCommand(
-                'sfdx force:user:display --json -u ' + username,
+                'sfdx org:display:user --json --target-org ' + username,
                 message
             );
             let jsonDxUser = JSON.parse(dxUserInfo.toString());
