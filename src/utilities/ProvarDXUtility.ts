@@ -110,14 +110,13 @@ export default class ProvarDXUtility {
             }
             if (jsonDxUser.result.password == null) {
                 const generatePasswordCommand =
-                    'sfdx force:user:password:generate --targetusername ' +
-                    username;
+                    'sfdx org:display:user --json --target-org ' + username;
                 await this.executeCommand(
                     generatePasswordCommand,
                     'Generating password for user: ' + username
                 );
                 dxUserInfo = await this.executeCommand(
-                    'sfdx force:user:display --json -u ' + username,
+                    'sfdx org:display:user --json --target-org ' + username,
                     'Getting generated password for user: ' + username
                 );
                 jsonDxUser = JSON.parse(dxUserInfo.toString());
