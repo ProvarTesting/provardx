@@ -106,18 +106,6 @@ export default class RunTests extends SfdxCommand {
         );
 
         if (
-            provarDxUtils.getProperties().testPlan &&
-            provarDxUtils.getProperties().connectionOverride
-        ) {
-            const selection = await cli.prompt(
-                'Test plans detected, connection overrides will be ignored, do you wish to continue (Y/N)? '
-            );
-            if (selection.toLowerCase() === 'n') {
-                return {};
-            }
-        }
-
-        if (
             !isValid ||
             provarDxUtils.hasDuplicateConnectionOverride(
                 provarDxUtils.getProperties()
